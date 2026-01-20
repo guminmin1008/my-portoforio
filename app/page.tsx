@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -49,55 +50,50 @@ const features = [
 // Pricing plans
 const pricingPlans = [
   {
-    name: "Entry",
-    description: "技術顧問・相談",
-    price: "5万〜",
-    unit: "月",
-    features: ["技術相談・レビュー", "アーキテクチャ設計支援", "コードレビュー", "月4回のMTG"],
+    name: "Spot",
+    description: "スポット相談",
+    features: ["技術相談・壁打ち", "アーキテクチャ設計支援", "コードレビュー", "単発でもOK"],
     popular: false,
   },
   {
-    name: "Basic",
+    name: "MVP",
     description: "爆速MVP開発",
-    price: "50万〜",
-    unit: "一式",
-    features: ["MVP設計・開発", "AI駆動による高速実装", "基本的なテスト", "納品後1ヶ月のサポート"],
+    features: ["MVP設計・開発", "AI駆動による高速実装", "基本的なテスト", "納品後サポート"],
     popular: true,
   },
   {
-    name: "Standard",
+    name: "Dev",
     description: "開発・保守",
-    price: "20万〜",
-    unit: "月",
     features: ["機能開発・改善", "バグ修正", "パフォーマンス改善", "運用サポート"],
     popular: false,
   },
   {
     name: "Enterprise",
     description: "大規模システム構築",
-    price: "300万〜",
-    unit: "一式",
     features: ["要件定義から設計", "スケーラブルな設計", "セキュリティ監査対応", "長期保守プラン"],
     popular: false,
   },
 ];
 
-// Works placeholder data
+// Works data
 const works = [
   {
-    title: "SaaS プラットフォーム開発",
-    category: "Webアプリケーション",
-    description: "月間10万ユーザーを支えるSaaSプラットフォームのフルスタック開発",
+    title: "大手電力・配送会社向けシステム開発",
+    category: "フルスクラッチ開発",
+    description: "AI駆動開発により従来比3倍のスピードで納品。大手企業の厳格な品質基準をクリア",
+    image: "/works/enterprise-system.jpg",
   },
   {
-    title: "AI チャットボット構築",
-    category: "AI/ML",
-    description: "カスタマーサポート自動化のためのAIチャットボットシステム",
+    title: "モバイルアプリ開発",
+    category: "iOS / Android",
+    description: "UI検証・テストに時間のかかるアプリ開発を高速サイクルで実現。リリース後ストア評価4.8を獲得",
+    image: "/works/mobile-app.jpg",
   },
   {
-    title: "ECサイト リニューアル",
-    category: "Eコマース",
-    description: "売上200%向上を達成したECサイトの完全リニューアル",
+    title: "炎上案件のリカバリー・長期保守",
+    category: "保守・運用",
+    description: "納期遅延・品質問題を抱えた案件を立て直し安定稼働へ。長期保守も迅速かつ高品質に対応",
+    image: "/works/maintenance.jpg",
   },
 ];
 
@@ -143,7 +139,7 @@ export default function Home() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-cyan-400">
               <Code2 className="h-5 w-5 text-white" />
             </div>
-            <span className="text-xl font-bold tracking-tight">DevForge</span>
+            <span className="text-xl font-bold tracking-tight">kakeru-inoue</span>
           </a>
 
           {/* Desktop Navigation */}
@@ -224,9 +220,9 @@ export default function Home() {
 
               {/* Subheading */}
               <p className="mt-6 text-lg leading-8 text-muted-foreground sm:text-xl">
-                システム開発の課題を技術で解決します。
+                アイデアを最速でカタチに。
                 <br className="hidden sm:block" />
-                MVP開発から大規模システム構築まで。エンジニアリングパートナー。
+                構想段階から開発・運用まで、技術面を丸ごとお任せください。
               </p>
 
               {/* CTA Buttons */}
@@ -305,13 +301,16 @@ export default function Home() {
             {/* Section header */}
             <div className="mx-auto max-w-2xl text-center">
               <h2 className="text-sm font-semibold uppercase tracking-wider text-cyan-400">
-                Pricing
+                Plan
               </h2>
               <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-                料金プラン
+                サービスプラン
               </p>
               <p className="mt-4 text-muted-foreground">
                 プロジェクトの規模に合わせた柔軟なプランをご用意しています
+              </p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                ※ 料金はプロジェクトの規模や内容により変動します。お気軽にご相談ください
               </p>
             </div>
 
@@ -334,10 +333,6 @@ export default function Home() {
                   <CardHeader className="pb-4">
                     <CardTitle className="text-lg">{plan.name}</CardTitle>
                     <CardDescription>{plan.description}</CardDescription>
-                    <div className="mt-4">
-                      <span className="text-3xl font-bold">{plan.price}</span>
-                      <span className="text-muted-foreground">/{plan.unit}</span>
-                    </div>
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-3">
@@ -389,9 +384,14 @@ export default function Home() {
                   key={index}
                   className="group overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm transition-all hover:border-cyan-500/30"
                 >
-                  {/* Placeholder image */}
-                  <div className="aspect-video bg-gradient-to-br from-blue-600/20 via-cyan-500/10 to-purple-600/20 flex items-center justify-center">
-                    <Code2 className="h-12 w-12 text-muted-foreground/30" />
+                  {/* Work image */}
+                  <div className="aspect-video relative overflow-hidden">
+                    <Image
+                      src={work.image}
+                      alt={work.title}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
                   </div>
                   <CardHeader>
                     <div className="mb-2 text-xs font-medium uppercase tracking-wider text-cyan-400">
@@ -534,12 +534,12 @@ export default function Home() {
               <div className="flex h-6 w-6 items-center justify-center rounded bg-gradient-to-br from-blue-500 to-cyan-400">
                 <Code2 className="h-4 w-4 text-white" />
               </div>
-              <span className="font-semibold">DevForge</span>
+              <span className="font-semibold">kakeru-inoue</span>
             </a>
 
             {/* Copyright & Built with */}
             <div className="flex flex-col items-center gap-2 text-sm text-muted-foreground sm:flex-row sm:gap-4">
-              <p>&copy; {new Date().getFullYear()} DevForge. All rights reserved.</p>
+              <p>&copy; {new Date().getFullYear()} kakeru-inoue. All rights reserved.</p>
               <span className="hidden sm:inline">|</span>
               <p className="flex items-center gap-1">
                 Built with Next.js & AI
